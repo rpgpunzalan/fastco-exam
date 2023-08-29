@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require('dotenv').config()
 
 // routes
 const scheduleRoutes = require("./routes/schedules");
@@ -24,8 +25,12 @@ app.use(
 
 ROUTES_CONTRACTOR(app, [scheduleRoutes], "/v1");
 
+const { DB_USERNAME, DB_PW, DB_NAME } = process.env;
+
 mongoose
-  .connect("mongodb://127.0.0.1:27017/fastco-exam")
+  .connect(
+    `mongodb+srv://${DB_USERNAME}:${DB_PW}@personal.knwxohc.mongodb.net/?retryWrites=true&w=majority/${DB_NAME}`
+  )
   .then(() => {
     console.log("Connected to MongoDB");
     app.listen(8000, () => console.log("Server started on port 8000"));
