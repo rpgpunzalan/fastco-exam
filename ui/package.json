@@ -18,7 +18,8 @@
     "iconify": "^1.4.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "usehooks-ts": "^2.9.1"
   },
   "devDependencies": {
     "@iconify/react": "^4.1.1",

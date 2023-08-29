@@ -14,6 +14,7 @@ type Props = {
 const AddSchedule = ({ setEvents, refreshEvents, event, setEditingEvent }: Props) => {
   const [newSchedule, setNewSchedule] = useState<Schedule>(scheduleInitialState);
   const [errorMsg, setErrorMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const register = (name: string, type = "text") => {
     return {
@@ -29,6 +30,7 @@ const AddSchedule = ({ setEvents, refreshEvents, event, setEditingEvent }: Props
   };
 
   const handleAdd = async () => {
+    setIsLoading(true);
     try {
       const response = await post(endpoints.schedules, newSchedule);
       // Refresh events from DB
@@ -42,10 +44,13 @@ const AddSchedule = ({ setEvents, refreshEvents, event, setEditingEvent }: Props
     } catch (error: unknown) {
       const { response } = error as { response: { data: { error: string } } };
       setErrorMsg(response.data.error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleUpdate = async () => {
+    setIsLoading(true);
     if (confirm("Are you sure you want to update this event?")) {
       try {
         await put(`${endpoints.schedules}/${event?._id}`, newSchedule);
@@ -57,6 +62,7 @@ const AddSchedule = ({ setEvents, refreshEvents, event, setEditingEvent }: Props
         setErrorMsg(response.data.error);
       }
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -80,11 +86,12 @@ const AddSchedule = ({ setEvents, refreshEvents, event, setEditingEvent }: Props
           {...register("description")}
         />
         <input type="date" {...register("date", "date")} className="focus:outline-none border p-2 rounded-lg" />
-        <button onClick={event ? handleUpdate : handleAdd} className="p-2 bg-blue-500 rounded-lg font-bold text-white">
+        <button disabled={isLoading} onClick={event ? handleUpdate : handleAdd} className="p-2 bg-blue-500 rounded-lg font-bold text-white">
           {event ? "Update Event" : "Add New Event"}
         </button>
         {event && (
           <button
+            disabled={isLoading}
             onClick={() => {
               setEditingEvent(null);
             }}
