@@ -26,10 +26,6 @@ function App() {
   };
 
   useEffect(() => {
-    refreshEvents();
-  }, []);
-
-  useEffect(() => {
     refreshEvents(debouncedSearch);
   }, [debouncedSearch]);
 

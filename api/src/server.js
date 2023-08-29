@@ -29,7 +29,7 @@ const { DB_USERNAME, DB_PW, DB_NAME } = process.env;
 
 mongoose
   .connect(
-    `mongodb+srv://${DB_USERNAME}:${DB_PW}@personal.knwxohc.mongodb.net/?retryWrites=true&w=majority/${DB_NAME}`
+    `mongodb+srv://${DB_USERNAME}:${DB_PW}@personal.knwxohc.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`
   )
   .then(() => {
     console.log("Connected to MongoDB");
