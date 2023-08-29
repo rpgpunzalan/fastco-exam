@@ -20,7 +20,7 @@ module.exports = (router) => {
     res.json(newSchedule);
   });
 
-  router.put("/schedules/:id", async (req, res) => {
+  router.put("/schedules/:id", scheduleValidationMiddleware, async (req, res) => {
     const updatedSchedule = await Schedule.findByIdAndUpdate(
       req.params.id,
       req.body,

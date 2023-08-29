@@ -6,8 +6,9 @@ import { del, endpoints } from "../../api";
 type Props = {
   event: Schedule;
   refreshEvents: () => void;
+  setEditingEvent: React.Dispatch<React.SetStateAction<Schedule | null>>;
 };
-const ScheduleItem = ({ event, refreshEvents }: Props) => {
+const ScheduleItem = ({ event, refreshEvents, setEditingEvent }: Props) => {
   const handleDelete = async () => {
     // delete event from DB
     if (confirm("Are you sure you want to delete this event?")) {
@@ -26,7 +27,11 @@ const ScheduleItem = ({ event, refreshEvents }: Props) => {
         <span className="text-xs font-semibold">{dayjs(event.date).format("MMM DD, YYYY")}</span>
       </div>
       <div className="hidden items-center gap-2 group-hover:flex">
-        <Icon icon="bx:bx-edit" className="w-5 h-5 text-gray-500 hover:text-gray-800 hover:cursor-pointer" />
+        <Icon
+          icon="bx:bx-edit"
+          onClick={() => setEditingEvent({...event})}
+          className="w-5 h-5 text-gray-500 hover:text-gray-800 hover:cursor-pointer"
+        />
         <Icon
           icon="bx:bx-trash"
           onClick={handleDelete}
