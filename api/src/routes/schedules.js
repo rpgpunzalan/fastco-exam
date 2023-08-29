@@ -8,6 +8,7 @@ module.exports = (router) => {
       deleted: false,
       title: { $regex: q, $options: "i" },
     })
+      .sort({ date: 1 })
       .skip((page - 1) * limit)
       .limit(limit);
     res.json(schedules);
@@ -21,11 +22,7 @@ module.exports = (router) => {
   });
 
   router.put("/schedules/:id", scheduleValidationMiddleware, async (req, res) => {
-    const updatedSchedule = await Schedule.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
+    const updatedSchedule = await Schedule.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updatedSchedule);
   });
 

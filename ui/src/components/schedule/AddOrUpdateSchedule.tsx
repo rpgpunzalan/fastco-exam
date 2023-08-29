@@ -38,7 +38,7 @@ const AddSchedule = ({ setEvents, refreshEvents, event, setEditingEvent }: Props
 
       // But I think it's better to just push the new event to the events array
       // for better performance and less network usage
-      setEvents((events) => [...events, response]);
+      setEvents((events) => [...events, response].sort((a, b) => dayjs(a.date).unix() - dayjs(b.date).unix()));
       setNewSchedule(scheduleInitialState);
       setErrorMsg("");
     } catch (error: unknown) {
@@ -86,7 +86,11 @@ const AddSchedule = ({ setEvents, refreshEvents, event, setEditingEvent }: Props
           {...register("description")}
         />
         <input type="date" {...register("date", "date")} className="focus:outline-none border p-2 rounded-lg" />
-        <button disabled={isLoading} onClick={event ? handleUpdate : handleAdd} className="p-2 bg-blue-500 rounded-lg font-bold text-white">
+        <button
+          disabled={isLoading}
+          onClick={event ? handleUpdate : handleAdd}
+          className="p-2 bg-blue-500 rounded-lg font-bold text-white"
+        >
           {event ? "Update Event" : "Add New Event"}
         </button>
         {event && (
