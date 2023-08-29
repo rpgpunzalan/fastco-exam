@@ -35,7 +35,6 @@ const AddSchedule = ({ setEvents }: Props) => {
 
       // But I think it's better to just push the new event to the events array
       // for better performance and less network usage
-
       setEvents((events) => [...events, response]);
       setNewSchedule(scheduleInitialState);
       setErrorMsg("");

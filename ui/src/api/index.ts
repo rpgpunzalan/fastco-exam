@@ -32,5 +32,5 @@ export const del = async (url: string) => {
 };
 
 export const endpoints = {
-  schedules: "/v1/schedules/",
+  schedules: "/v1/schedules",
 };

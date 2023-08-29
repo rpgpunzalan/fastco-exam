@@ -11,7 +11,7 @@ const ScheduleItem = ({ event, refreshEvents }: Props) => {
   const handleDelete = async () => {
     // delete event from DB
     if (confirm("Are you sure you want to delete this event?")) {
-      await del(`${endpoints.schedules}/${event.id}`);
+      await del(`${endpoints.schedules}/${event._id}`);
       refreshEvents();
     }
   };
