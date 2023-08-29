@@ -33,7 +33,7 @@ function App() {
     <div className=" min-h-screen flex flex-col gap-4 p-10">
       <div className="flex flex-col bg-white rounded-md shadow-lg p-10 grow">
         <div className="flex flex-row h-full gap-5">
-          <div className="flex flex-col w-[20%] border rounded-lg h-full">
+          <div className="flex flex-col w-full lg:w-[20%] border rounded-lg h-full">
             <span className="p-4 bg-gray-secondary font-bold">Scheduled Appointments</span>
             <div className="flex items-center gap-2 px-4 p-2 border-b">
               <Icon icon="bx:bx-search" className="w-5 h-5 text-gray-500" />
@@ -51,7 +51,7 @@ function App() {
               setEditingEvent={setEditingEvent}
             />
           </div>
-          <div className="flex flex-col grow p-4 h-full rounded shadow-lg border">
+          <div className="hidden lg:flex flex-col grow p-4 h-full rounded shadow-lg border">
             <Calendar events={events} />
           </div>
         </div>
