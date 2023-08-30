@@ -6,7 +6,10 @@ module.exports = (router) => {
     const { limit = 999999, page = 1, q = "" } = req.query;
     const schedules = await Schedule.find({
       deleted: false,
-      title: { $regex: q, $options: "i" },
+      $or: [
+        { title: { $regex: q, $options: "i" } },
+        { description: { $regex: q, $options: "i" } },
+      ]
     })
       .sort({ date: 1 })
       .skip((page - 1) * limit)
